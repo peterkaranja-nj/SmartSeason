@@ -3,6 +3,7 @@
 A full-stack web application for tracking crop progress across multiple fields during a growing season.
 
 **Stack:** Node.js + Express · React · PostgreSQL · JWT Auth
+**Live:** on vercel( https://smart-season-4tp9d0a5z-karls-projects-2bf4ba35.vercel.app ) · API on [Railway](https://railway.app)
 
 ---
 
@@ -16,7 +17,14 @@ A full-stack web application for tracking crop progress across multiple fields d
 | Agent     | kwame@smartseason.com        | agent123   |
 | Agent     | ngangi@smartseason.com       | agent123   |  
 ---
+## Features
 
+- **Role-based access** — Admins (Coordinators) manage everything; Field Agents only see and update their assigned fields
+- **Field lifecycle tracking** — Four stages: Planted → Growing → Ready → Harvested
+- **Computed field status** — Active, At Risk, or Completed — calculated automatically from stage age
+- **Update history** — Every stage change is logged with agent name, timestamp, and optional notes
+- **Dashboard** — At-a-glance stats, stage breakdown, recent activity, and agent summaries
+---
 ## Setup Instructions
 
 ### Prerequisites
