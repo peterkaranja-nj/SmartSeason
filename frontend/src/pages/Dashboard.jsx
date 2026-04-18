@@ -48,7 +48,7 @@ export default function Dashboard() {
           <h1 style={{ fontFamily: 'DM Serif Display, serif', fontSize: isMobile ? 24 : 30, color: 'var(--forest)', marginBottom: 4 }}>
             Good {greeting()}, {user.name.split(' ')[0]}
           </h1>
-          <p style={{ fontSize: 14, color: 'var(--ghost)' }}>{isAdmin ? 'Here's your farm overview for today.' : 'Here are your assigned fields.'}</p>
+          <p style={{ fontSize: 14, color: 'var(--ghost)' }}>{isAdmin ? 'Here\'s your farm overview for today.' : 'Here are your assigned fields.'}</p>
         </div>
         {isAdmin && (
           <button style={{ background: 'var(--forest)', color: '#fff', padding: '10px 18px', borderRadius: 8, fontSize: 14, fontWeight: 600, cursor: 'pointer', border: 'none', flexShrink: 0 }} onClick={() => navigate('/fields')}>
