@@ -1,10 +1,25 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth <= 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
+  return isMobile;
+}
 
 export default function Login() {
   const { login } = useAuth();
   const navigate = useNavigate();
+  const isMobile = useIsMobile();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -26,12 +41,23 @@ export default function Login() {
   };
 
   return (
-    <div style={s.page}>
+    <div style={{
+      ...s.page,
+      flexDirection: isMobile ? 'column' : 'row'
+    }}>
       {/* Left panel */}
-      <div style={s.left}>
+      <div style={{
+        ...s.left,
+        minHeight: isMobile ? 'auto' : '100vh',
+        padding: isMobile ? '48px 24px 36px' : '60px 48px'
+      }}>
         <div style={s.leftInner}>
           <div style={s.brand}>🌿 SmartSeason</div>
-          <h1 style={s.tagline}>
+
+          <h1 style={{
+            ...s.tagline,
+            fontSize: isMobile ? 36 : 48
+          }}>
             Field monitoring
             <br />
             <em>made easy.</em>
@@ -59,8 +85,16 @@ export default function Login() {
       </div>
 
       {/* Right panel */}
-      <div style={s.right}>
-        <div style={s.card}>
+      <div style={{
+        ...s.right,
+        width: isMobile ? '100%' : 460,
+        minHeight: isMobile ? 'auto' : '100vh',
+        padding: isMobile ? 24 : 40
+      }}>
+        <div style={{
+          ...s.card,
+          maxWidth: isMobile ? '100%' : 380
+        }}>
           <h2 style={s.title}>Sign in</h2>
           <p style={s.hint}>Use your SmartSeason credentials</p>
 
@@ -106,15 +140,17 @@ export default function Login() {
 }
 
 const s = {
-  page: { display: 'flex', minHeight: '100vh' },
+  page: {
+    display: 'flex',
+    minHeight: '100vh'
+  },
 
   left: {
     flex: 1,
     background: 'var(--forest)',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
-    padding: '60px 48px',
+    justifyContent: 'center'
   },
 
   leftInner: {
@@ -130,7 +166,6 @@ const s = {
 
   tagline: {
     fontFamily: 'DM Serif Display, serif',
-    fontSize: 48,
     color: 'var(--mist)',
     lineHeight: 1.1,
     marginBottom: 20
@@ -164,17 +199,14 @@ const s = {
   },
 
   right: {
-    width: 460,
     background: 'var(--fog)',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
-    padding: 40,
+    justifyContent: 'center'
   },
 
   card: {
-    width: '100%',
-    maxWidth: 380
+    width: '100%'
   },
 
   title: {
@@ -215,24 +247,25 @@ const s = {
   },
 
   input: {
-    padding: '11px 14px',
+    width: '100%',
+    boxSizing: 'border-box',
+    padding: '13px 14px',
     borderRadius: 8,
-    fontSize: 14,
+    fontSize: 16,
     border: '1.5px solid var(--border)',
     background: '#fff',
-    color: 'var(--ink)',
-    transition: 'border 0.15s'
+    color: 'var(--ink)'
   },
 
   btn: {
+    width: '100%',
     marginTop: 16,
-    padding: '13px',
+    padding: '14px',
     borderRadius: 8,
     background: 'var(--forest)',
     color: '#fff',
     fontSize: 15,
     fontWeight: 600,
-    cursor: 'pointer',
-    transition: 'background 0.15s'
+    cursor: 'pointer'
   }
 };
