@@ -3,7 +3,8 @@
 A full-stack web application for tracking crop progress across multiple fields during a growing season.
 
 **Stack:** Node.js + Express · React · PostgreSQL · JWT Auth
-**Live:** on vercel( https://smart-season-4tp9d0a5z-karls-projects-2bf4ba35.vercel.app ) · API on [Railway](https://railway.app)
+
+**Live:** on vercel( 'https://smart-season.vercel.app' ) · API on [Railway](https://railway.app)
 
 ---
 

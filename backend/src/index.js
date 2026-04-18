@@ -8,6 +8,7 @@ const app = express();
 const allowedOrigins = [
   process.env.CLIENT_URL,
   'http://localhost:3000',
+  'https://smart-season.vercel.app'
 ].filter(Boolean);
 
 app.use(cors({
