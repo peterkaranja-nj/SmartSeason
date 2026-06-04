@@ -16,7 +16,7 @@ function useIsMobile() {
 }
 
 export default function Login() {
-  const { login } = useAuth();
+  const { login, demoLogin } = useAuth();
   const navigate = useNavigate();
   const isMobile = useIsMobile();
 
@@ -132,6 +132,29 @@ export default function Login() {
               {loading ? 'Signing in…' : 'Sign in →'}
             </button>
           </form>
+
+          <div style={s.divider}>
+            <span style={s.dividerLine} />
+            <span style={s.dividerText}>or try without an account</span>
+            <span style={s.dividerLine} />
+          </div>
+
+          <div style={s.trialRow}>
+            <button
+              type="button"
+              style={s.trialBtnAdmin}
+              onClick={() => { demoLogin('admin'); navigate('/dashboard'); }}
+            >
+              Admin preview
+            </button>
+            <button
+              type="button"
+              style={s.trialBtnAgent}
+              onClick={() => { demoLogin('agent'); navigate('/dashboard'); }}
+            >
+              Agent preview
+            </button>
+          </div>
 
         </div>
       </div>
@@ -265,6 +288,54 @@ const s = {
     background: 'var(--forest)',
     color: '#fff',
     fontSize: 15,
+    fontWeight: 600,
+    cursor: 'pointer'
+  },
+
+  divider: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 10,
+    margin: '24px 0 16px'
+  },
+
+  dividerLine: {
+    flex: 1,
+    height: 1,
+    background: 'var(--border)'
+  },
+
+  dividerText: {
+    fontSize: 12,
+    color: 'var(--ghost)',
+    whiteSpace: 'nowrap'
+  },
+
+  trialRow: {
+    display: 'flex',
+    gap: 10
+  },
+
+  trialBtnAdmin: {
+    flex: 1,
+    padding: '11px 0',
+    borderRadius: 8,
+    border: '1.5px solid var(--forest)',
+    background: 'transparent',
+    color: 'var(--forest)',
+    fontSize: 13,
+    fontWeight: 600,
+    cursor: 'pointer'
+  },
+
+  trialBtnAgent: {
+    flex: 1,
+    padding: '11px 0',
+    borderRadius: 8,
+    border: '1.5px solid var(--border)',
+    background: 'transparent',
+    color: 'var(--dusk)',
+    fontSize: 13,
     fontWeight: 600,
     cursor: 'pointer'
   }

@@ -11,6 +11,12 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const demoUser = localStorage.getItem('demo_mode');
+    if (demoUser) {
+      setUser(JSON.parse(demoUser));
+      setLoading(false);
+      return;
+    }
     const token = localStorage.getItem('token');
     if (token) {
       api.get('/auth/me')
@@ -34,14 +40,23 @@ export const AuthProvider = ({ children }) => {
     return res.data.user;
   };
 
+  const demoLogin = (role) => {
+    const mockUser = role === 'admin'
+      ? { id: 'demo-admin', name: 'Demo Admin', email: 'admin@demo.com', role: 'admin' }
+      : { id: 'demo-agent', name: 'Demo Agent', email: 'agent@demo.com', role: 'agent' };
+    localStorage.setItem('demo_mode', JSON.stringify(mockUser));
+    setUser(mockUser);
+  };
+
   const logout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    localStorage.removeItem('demo_mode');
     setUser(null);
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, loading }}>
+    <AuthContext.Provider value={{ user, login, demoLogin, logout, loading }}>
       {children}
     </AuthContext.Provider>
   );
